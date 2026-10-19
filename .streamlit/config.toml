@@ -1,0 +1,28 @@
+[theme]
+base = "light"
+primaryColor = "#2C6F7B"
+backgroundColor = "#F3F4F1"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#1B1B1B"
+font = "Urbanist:https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+baseFontSize = 14
+baseRadius = "16px"
+buttonRadius = "full"
+borderColor = "#E3E4DF"
+showWidgetBorder = true
+linkColor = "#2C6F7B"
+redColor = "#C23B22"
+greenColor = "#2C6F7B"
+dataframeBorderColor = "#E3E4DF"
+dataframeHeaderBackgroundColor = "#F3F4F1"
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+maxUploadSize = 2
+headless = true
+enableStaticServing = true
+
+[browser]
+gatherUsageStats = false

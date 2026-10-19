@@ -1,0 +1,12 @@
+__pycache__/
+.venv/
+.streamlit/secrets.toml
+*.log
+data/
+*.parquet
+Train*.csv
+Test.csv
+/.agents
+/.claude
+/.impeccable
+/.taste-skill
