@@ -4,7 +4,6 @@ import json
 import joblib
 import numpy as np
 import pandas as pd
-import preprocessing  # Required by the saved FunctionTransformer.
 
 ROOT=Path(__file__).resolve().parent
 COLS=json.loads((ROOT/'artifacts/feature_schema.json').read_text())
@@ -26,8 +25,9 @@ def validate(frame):
     if not 1<=len(frame)<=1000:
         raise ValueError('Provide between 1 and 1,000 feature rows.')
     x=frame.loc[:,COLS].copy()
-    counts=[c for c in COLS if c.startswith(('month_','count_','category_')) or c in ['lifetime_count','account_count','active_days','observed_days','recency_days','active_months_12m','fin_products','fin_rows']]
-    nonnegative=[c for c in COLS if c.startswith(('month_','count_','mean_','std_','category_')) or c in ['lifetime_count','account_count','active_days','recency_days','observed_days','active_months_12m','fin_products','fin_rows','income_log']]
+    counts=[c for c in COLS if c.startswith(('month_','count_','category_')) or c in ['lifetime_count','account_count','active_days','recency_days','active_months_12m','fin_products']]
+    # Balances (mean_balance, min_balance) and trend_3m can be negative, so they are not listed.
+    nonnegative=counts+[c for c in ['mean_abs_amount','income_log'] if c in COLS]
     for c in COLS:
         num=pd.to_numeric(x[c],errors='coerce')
         if (x[c].notna()&num.isna()).any():

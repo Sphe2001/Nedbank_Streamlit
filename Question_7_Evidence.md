@@ -1,7 +1,7 @@
 # Question 7 - Streamlit implementation and evidence
 
 ## 7.1 Working interface
-The Streamlit app loads the unchanged optimised Random Forest and its complete saved preprocessing pipeline. It is a real web application, launched with `python -m streamlit run streamlit_app.py`.
+The Streamlit app loads the notebook's tuned Random Forest (200 trees, 43 features) and its complete saved preprocessing pipeline, copied unchanged from the notebook's `outputs/final_pipeline.joblib`. It is a real web application, launched with `python -m streamlit run streamlit_app.py`.
 
 ## 7.2 Input, prediction and explanation
 Users can upload a feature CSV, paste CSV text, edit a single feature profile, or choose a synthetic demo. Results show the class, model probability, all class probabilities and a short activity-context explanation. No causal attribution is claimed.
@@ -21,14 +21,15 @@ Deployment portal: https://share.streamlit.io/ . It is not the app demonstration
 
 | Demonstration | Actual outcome | Passed |
 | --- | --- | --- |
-| Valid low activity | Low: 0-49 transactions (81.2%) | Yes |
-| Valid medium activity | Medium: 50-199 transactions (85.6%) | Yes |
-| Valid high activity | High: 200+ transactions (80.7%) | Yes |
+| Valid low activity | Low: 0-49 transactions (88.9%) | Yes |
+| Valid medium activity | Medium: 50-199 transactions (96.8%) | Yes |
+| Valid high activity | High: 200+ transactions (95.6%) | Yes |
 | Invalid negative count | month_01 cannot be negative. | Yes |
 | Three-row CSV through Streamlit input | Check succeeded | Yes |
 | Missing required feature | Missing required features: month_01 | Yes |
 | Editable manual profile | Low: 0-49 transactions | Yes |
 | Inconsistent rolling count | Check succeeded | Yes |
+| Negative balance and trend accepted | Check succeeded | Yes |
 | Extra identifier column blocked | Check succeeded | Yes |
 | Complete saved pipeline probabilities preserved | Check succeeded | Yes |
 

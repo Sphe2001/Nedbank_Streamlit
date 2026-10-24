@@ -47,7 +47,7 @@ with left,st.container(key='panel'):
             st.download_button('Valid CSV template',examples.to_csv(index=False),'valid_features.csv','text/csv',**QUIET)
             st.download_button('Invalid demonstration',(ROOT/'examples/invalid_features.csv').read_bytes(),'invalid_features.csv','text/csv',**QUIET)
         uploaded=st.file_uploader('Feature CSV',type=['csv'],key='feature_csv')
-        st.html('<p class="hint">Prepared customer features in the 55-feature schema, not raw bank statements. Up to 1,000 rows and 2 MB.</p>')
+        st.html(f'<p class="hint">Prepared customer features in the {len(COLS)}-feature schema, not raw bank statements. Up to 1,000 rows and 2 MB.</p>')
         text=st.text_area('Or paste CSV text',help='Use either the file upload or pasted CSV, not both.',key='pasted_csv',placeholder='month_01,month_02,…')
         clicked=st.button('Predict uploaded rows',key='predict_upload',**ARROW)
         st.html('<p class="hint">Synthetic data only: no names, IDs, account numbers or confidential records. Files stay in server memory and are not written to disk, though a hosted service still receives the bytes.</p>')
@@ -83,7 +83,7 @@ with st.expander('Model and limits',key='sec_limits'):
 
 **Demand classes.** Low is 0-49, Medium 50-199 and High 200 or more future transactions, November 2015 to January 2016. The thresholds are project assumptions, not official bank workload categories.
 
-**Pipeline.** The saved pipeline performs training-fitted median imputation, signed log transformation, scaling and classification. No models are trained during prediction. Historical accuracy does not establish reliability on current customers or measured service benefits. Missing months indicate zero observed records, not necessarily inactivity.
+**Pipeline.** The saved pipeline performs training-fitted median imputation with missing-value flags, an arcsinh (signed log-like) transformation, scaling and classification. No models are trained during prediction. Historical accuracy does not establish reliability on current customers or measured service benefits. Missing months indicate zero observed records, not necessarily inactivity.
 
 **Privacy.** Use synthetic examples on a public demo. Do not submit names, IDs, account numbers or confidential banking records. Files are processed in server memory and are not written to disk by this app. A hosted service still receives uploaded bytes.
 

@@ -4,11 +4,11 @@ from html import escape
 
 import pandas as pd
 
-from predictor import MONTHS
+from predictor import COLS,MONTHS
 
 CLASSES=[('Low','0–49',0,49),('Medium','50–199',50,199),('High','200+',200,None)]
 MON='NDJFMAMJJASO'
-CHECKS=['55 required features present','No extra or identifier columns','Counts are whole numbers of 0 or more',
+CHECKS=[f'{len(COLS)} required features present','No extra or identifier columns','Counts are whole numbers of 0 or more',
     'Flags are 0 or 1, debit share within 0–1','Rolling counts equal monthly sums']
 WARN='Academic demo on 2015 data. Probabilities are uncalibrated; not for decisions about real customers.'
 
@@ -192,7 +192,7 @@ def checks(fail=None,open_=False):
 def pipeline(bad):
     steps=[('Validate inputs','tick',18,0),('Preprocess','sliders',50,380),('Random Forest','tree',82,760)]
     track=''.join(f'<div class="pipe-step{" bad" if bad and i==0 else " off" if bad else ""}" style="left:{l}%;--d:{d}ms"><b>{ICO["cross" if bad and i==0 else ic]}</b><span>{t}</span></div>' for i,(t,ic,l,d) in enumerate(steps))
-    big,sub=('Checking the input…','A check failed, so the model will not run.') if bad else ('Running the saved pipeline…','Validation, imputation and scaling, then 260 trees vote.')
+    big,sub=('Checking the input…','A check failed, so the model will not run.') if bad else ('Running the saved pipeline…','Validation, imputation and scaling, then 200 trees vote.')
     return f'''<section class="pipe" aria-live="polite"><p class="pipe-lbl">Data processing</p><div class="pipe-track"><i class="pipe-fill{" stop" if bad else ""}"></i>{track}</div>
 <div><p class="pipe-big">{big}</p><p class="pipe-sub">{sub}</p></div></section>'''
 

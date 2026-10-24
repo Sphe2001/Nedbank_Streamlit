@@ -40,6 +40,9 @@ def main():
     try:predict(bad);raise AssertionError('Inconsistent rolling count accepted')
     except ValueError as e:assert 'must equal the sum' in str(e)
     tests.append({'case':'Inconsistent rolling count','passed':True})
+    overdrawn=valid.copy();overdrawn.loc[0,['mean_balance','min_balance','trend_3m']]=[-500,-2000,-10]
+    predict(overdrawn)  # real customers can have negative balances and falling activity
+    tests.append({'case':'Negative balance and trend accepted','passed':True})
     personal=valid.copy();personal['CustomerName']='Example'
     try:predict(personal);raise AssertionError('Extra personal field accepted')
     except ValueError as e:assert 'extra columns' in str(e)

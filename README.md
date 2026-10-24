@@ -24,8 +24,7 @@ Public deployment status: not deployed by this package. No live app URL is claim
 Deployment portal: https://share.streamlit.io/
 
 1. Create a GitHub repository and upload this folder's **contents**, keeping
-   artifacts/, examples/, static/, .streamlit/, predictor.py, preprocessing.py,
-   ui.py and style.css.
+   artifacts/, examples/, static/, .streamlit/, predictor.py, ui.py and style.css.
    Do not upload raw banking files, personal information, credentials or secrets.
 2. Sign in to https://share.streamlit.io/ with your account and authorise access
    to the repository. Choose **Create app** and deployment from an existing repo.
@@ -66,14 +65,21 @@ All examples are synthetic. Predicted probabilities are uncalibrated model
 estimates. The forecast horizon is November 2015-January 2016; this is a historical
 academic demonstration, not a validated current-day operational bank service.
 
-For uploads, use examples/valid_features.csv as the exact schema template.
+For uploads, use examples/valid_features.csv as the exact schema template. It is
+the notebook's outputs/valid_examples.csv (and invalid_features.csv is its
+outputs/invalid_example.csv), so feature rows made by the notebook upload as-is.
 Do not upload personal or confidential records to an unauthorised hosted app.
 The app processes inputs in memory without explicitly saving uploaded files.
 
 ## Model and sources
 
-The saved Random Forest had 260 trees, depth 12 and minimum leaf size 6. The
-pipeline includes its training-fitted imputation, signed log transform and scaler.
+The model is the notebook's tuned Random Forest (Nedbank_Assignment_Simple (1).ipynb,
+Section 15): 200 trees, max_features 1.0, depth 12 and minimum leaf size 6, on 43
+engineered features. artifacts/classification_pipeline.joblib is a copy of the
+notebook's outputs/final_pipeline.joblib and artifacts/feature_schema.json of its
+outputs/feature_columns.json. The pipeline includes its training-fitted median
+imputation with missing-value flags, arcsinh transform and scaler. It was saved
+with scikit-learn 1.9.1, so keep that version.
 Files are trusted assignment artifacts. Never replace the joblib with an
 untrusted file, because deserialisation can execute code.
 
@@ -82,7 +88,6 @@ https://zindi.africa/competitions/nedbank-transaction-volume-forecasting-challen
 
 The README states CC BY-SA 4.0; the competition also includes retention terms.
 Confirm academic and publication permissions. This app includes no original data.
-The module preprocessing.py is retained to load the saved transformation.
 
 AI assistance: initial conversion and tests prepared with ChatGPT/Codex.
 Students should review, understand and disclose assistance according to policy.

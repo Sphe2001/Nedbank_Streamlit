@@ -13,11 +13,11 @@ The primary user is the assignment marker (lecturer or tutor) assessing IDA117V 
 A Streamlit web app that serves the saved, unchanged optimised Random Forest classifier and sorts a customer's future transaction demand (November 2015–January 2016) into three classes: Low (0–49), Medium (50–199) or High (200+). Success means the marker can run the three valid demos and the one invalid demo, see a class, its probabilities and a short explanation, and confirm that validation and responsible-use safeguards are real.
 
 ## Positioning
-It uses the exact assignment champion pipeline (training-fitted imputation, signed log transform, scaler, Random Forest with 260 trees, depth 12, minimum leaf size 6) with no retraining. Every rubric item is backed by reproducible AppTest evidence (`evidence/test_results.json`).
+It uses the notebook's saved champion pipeline (training-fitted imputation with missing-value flags, arcsinh transform, scaler, tuned Random Forest with 200 trees, max_features 1.0, depth 12, minimum leaf size 6) with no retraining. Every rubric item is backed by reproducible AppTest evidence (`evidence/test_results.json`).
 
 ## Operating Context
 - Run locally with `python -m streamlit run streamlit_app.py` (http://localhost:8501) or deploy to Streamlit Community Cloud (not deployed yet; no public URL is claimed).
-- Three input methods: Demonstration cases (synthetic), Upload/paste CSV (55-feature schema, ≤1,000 rows, ≤2 MB), Manual entry (editable feature table seeded from templates).
+- Three input methods: Demonstration cases (synthetic), Upload/paste CSV (43-feature schema from the notebook, ≤1,000 rows, ≤2 MB), Manual entry (editable feature table seeded from templates).
 - Outputs: predicted class metric, model probability, per-class probability table, explanation text, CSV download.
 - Supporting documents: `README.md`, `Question_7_Evidence.md`, `feature_guidance.csv`.
 
